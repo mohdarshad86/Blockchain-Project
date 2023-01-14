@@ -1,6 +1,9 @@
 const coinModel = require("../models/coinModel");
 const axios = require("axios");
 
+axios.defaults.headers.common["Authorization"] =
+  "Bearer a6aac9ba-52fa-4b68-ae52-e477637841cd";
+
 exports.getCoins = async (req, res) => {
   try {
     let assets = await axios.get("https://api.coincap.io/v2/assets");
@@ -33,7 +36,9 @@ exports.getCoins = async (req, res) => {
       }
 
       for (let i = 0; i < getData.length; i++) {
-        getData.sort((x, y) => x.changePercent24Hr - y.changePercent24Hr);
+        getData.sort(
+          (x, y) => Number(x.changePercent24Hr) - Number(y.changePercent24Hr)
+        );
       }
       return res.status(200).send({ status: true, data: getData });
     }
