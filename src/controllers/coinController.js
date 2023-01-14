@@ -1,6 +1,8 @@
 const CoinModel = require("../models/coinModel");
 
-const getCoins = async (req, res) => {
+exports.getCoins = async (req, res) => {
   try {
-  } catch (error) {}
+  } catch (err) {
+    console.log(err.message);
+  }
 };
