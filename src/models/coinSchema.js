@@ -20,3 +20,4 @@ module.exports = mongoose.model("Coin", coinSchema)
 //     "marketCapUsd": // String  ( not Number)
 //      "priceUsd": //String
 //    }
+// Notice that changePercent24Hr key is not present in the schema or collection
