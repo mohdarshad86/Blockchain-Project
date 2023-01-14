@@ -1,12 +1,19 @@
 const coinModel = require("../models/coinModel");
 const axios = require("axios");
 
-axios.defaults.headers.common["Authorization"] =
-  "Bearer a6aac9ba-52fa-4b68-ae52-e477637841cd";
+// axios.defaults.headers.common["Authorization"] =
+//   "Bearer a6aac9ba-52fa-4b68-ae52-e477637841cd";
 
+//We can also do that
 exports.getCoins = async (req, res) => {
   try {
-    let assets = await axios.get("https://api.coincap.io/v2/assets");
+    token = "a6aac9ba-52fa-4b68-ae52-e477637841cd";
+
+    let assets = await axios.get("https://api.coincap.io/v2/assets", {
+      headers: {
+        Authorization: "Bearer " + token, //the token is a variable which holds the generated token
+      },
+    });
 
     let coinData = assets.data;
 
@@ -17,13 +24,13 @@ exports.getCoins = async (req, res) => {
 
       for (let i = 0; i < coinData.data.length; i++) {
         let newDoc = {
-          symbol: coinData.data[i].symbol,
           name: coinData.data[i].name,
+          symbol: coinData.data[i].symbol,
           marketCapUsd: coinData.data[i].marketCapUsd,
           priceUsd: coinData.data[i].priceUsd,
         };
 
-        let createData = await coinModel.create(newDoc);
+        let createData = await coinModel.create(newDoc)
 
         arr.push(newDoc);
       }
