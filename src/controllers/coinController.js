@@ -7,7 +7,7 @@ const axios = require("axios");
 //We can also do that
 exports.getCoins = async (req, res) => {
   try {
-    token = "a6aac9ba-52fa-4b68-ae52-e477637841cd";
+    let token = "a6aac9ba-52fa-4b68-ae52-e477637841cd";
 
     let assets = await axios.get("https://api.coincap.io/v2/assets", {
       headers: {
@@ -34,7 +34,7 @@ exports.getCoins = async (req, res) => {
 
         arr.push(newDoc);
       }
-      return res.send({ status: true, msg: "Coin data is created" });
+      return res.status(200).send({ status: true, msg: "Coin data is created" });
     } else {
       let getData = await coinModel.find();
 
